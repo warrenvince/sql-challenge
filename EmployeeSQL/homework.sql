@@ -11,9 +11,9 @@ CREATE TABLE departments (
      )
 );
 
-DROP TABLE dept_emp CASCADE
 
-select * from departments
+
+
 
 CREATE TABLE dept_emp (
     emp_no INTEGER   NOT NULL,
@@ -31,9 +31,7 @@ CREATE TABLE dept_manager (
     from_date DATE   NOT NULL,
     to_date DATE   NOT NULL);
 
-select * from dept_manager
 
-DROP TABLE dept_manager
 
 CREATE TABLE employees (
     emp_no INTEGER   NOT NULL,
@@ -64,37 +62,18 @@ CREATE TABLE titles (
     to_date DATE   NOT NULL
 );
 
-DROP TABLE titles CASCADE
 
-
-ALTER TABLE dept_emp ADD CONSTRAINT fk_departments_dept_no FOREIGN KEY(dept_no)
-REFERENCES departments (dept_no);
-
-ALTER TABLE dept_emp ADD CONSTRAINT fk_dept_emp_emp_no FOREIGN KEY(emp_no)
-REFERENCES titles (emp_no);
-
-ALTER TABLE dept_emp ADD CONSTRAINT fk_employees_emp_no FOREIGN KEY(emp_no)
-REFERENCES employees (emp_no);
-
-ALTER TABLE dept_emp ADD CONSTRAINT fk_salaries_emp_no FOREIGN KEY(emp_no)
-REFERENCES salaries (emp_no);
 
 ALTER TABLE dept_manager ADD CONSTRAINT fk_departments_dept_no FOREIGN KEY(dept_no)
 REFERENCES departments (dept_no);
 
-ALTER TABLE dept_manager ADD CONSTRAINT fk_dept_emp_emp_no FOREIGN KEY(emp_no)
-REFERENCES titles (emp_no);
 
 ALTER TABLE dept_manager ADD CONSTRAINT fk_employees_emp_no FOREIGN KEY(emp_no)
 REFERENCES employees (emp_no);
 
-ALTER TABLE dept_manager ADD CONSTRAINT fk_salaries_emp_no FOREIGN KEY(emp_no)
-REFERENCES salaries (emp_no);
 
-ALTER TABLE departments
-ALTER COLUMN dept_no VARCHAR(10);
 
-select * from dept_emp
+
 
 --List the following details of each employee: employee number, last name, first name, gender, and salary.
 
@@ -104,7 +83,7 @@ join salaries s ON e.emp_no = s.emp_no
 --List employees who were hired in 1986.
 
 select e.emp_no, e.last_name, e.first_name,e.hire_date from employees e
-WHERE e.hire_date >= '01/01/1986'
+WHERE e.hire_date >= '01/01/1986' AND e.hire_date <= '12/31/1986'
 
 --List the manager of each department with the following information: department number, department name, the manager's employee number, last name, first name, and start and end employment dates.
 select dm.dept_no, d.dept_name, dm.emp_no, e.first_name, e.last_name,dm.from_date, dm.to_date
@@ -148,5 +127,5 @@ FROM employees
 GROUP BY(last_name)
 ORDER BY count_last_name DESC
 
-select distinct dept_name from departments
+
 
